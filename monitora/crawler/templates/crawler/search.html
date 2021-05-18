@@ -1,0 +1,32 @@
+{% extends "crawler/index.html" %}
+{% block content %}
+    <div class="mb-3 mt-3">
+            <form action="/" method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" class="btn btn-primary" value="Search!">
+            </form>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="list-group">
+                <span class="list-group-item list-group-item-action disabled"><strong>Movies</strong></span>
+                {% for movie in movies %}
+                    <a class="list-group-item list-group-item-action" href="{% url 'movie' movie.id %}">{{ movie.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="list-group">
+                <span class="list-group-item list-group-item-action disabled"><strong>Actors</strong></span>
+                {% for actor in actors %}
+                    <a class="list-group-item list-group-item-action" href="{% url 'actor' actor.id %}">{{ actor.name }}</a>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

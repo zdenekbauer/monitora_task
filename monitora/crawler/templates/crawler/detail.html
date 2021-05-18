@@ -1,0 +1,17 @@
+{% extends "crawler/index.html" %}
+{% block content %}
+
+    {% if data %}
+        <div class="row">
+            <div class="col">
+                <div class="list-group">
+                    <span class="list-group-item list-group-item-action disabled"><strong>{{ type }}</strong></span>
+                    {% for result in data %}
+                        <a class="list-group-item list-group-item-action" href="{% url type result.id %}">{{ result.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
