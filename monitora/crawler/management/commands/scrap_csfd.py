@@ -1,8 +1,7 @@
-from django.core.management.base import BaseCommand, CommandError
-from crawler.models import Actor, Movie
-from unidecode import unidecode
-from bs4 import BeautifulSoup as bs
 import requests
+from bs4 import BeautifulSoup as bs
+from crawler.models import Actor, Movie
+from django.core.management.base import BaseCommand
 
 CSFD_URL = "https://www.csfd.cz"
 

@@ -1,10 +1,8 @@
-from django.http import Http404
 from django.shortcuts import render
-
-from .models import Actor, Movie
-from .forms import SearchForm
-
 from unidecode import unidecode
+
+from .forms import SearchForm
+from .models import Actor, Movie
 
 
 def search(request):
