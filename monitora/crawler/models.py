@@ -17,6 +17,7 @@ class Movie(models.Model):
 class Actor(models.Model):
     name = models.CharField(max_length=200)
     stripped_name = models.CharField(max_length=200)
+    csfd_link = models.CharField(max_length=200)
     movies = models.ManyToManyField(Movie)
 
     def save(self, *args, **kwargs):

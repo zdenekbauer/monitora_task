@@ -42,11 +42,12 @@ class Command(BaseCommand):
                     continue
 
                 actor_name = actor.text.strip()
+                actor_csfd_link = actor['href'].strip()
 
                 try:
-                    actor_query = Actor.objects.get(name=actor_name)
+                    actor_query = Actor.objects.get(name=actor_name, csfd_link=actor_csfd_link)
                 except Actor.DoesNotExist:
-                    actor_query = Actor(name=actor_name)
+                    actor_query = Actor(name=actor_name, csfd_link=actor_csfd_link)
                     actor_query.save()
                 actor_query.movies.add(movie_query)
 
