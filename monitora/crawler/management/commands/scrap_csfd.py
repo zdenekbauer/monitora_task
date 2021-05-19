@@ -7,6 +7,10 @@ CSFD_URL = "https://www.csfd.cz"
 
 
 def get_soup(path: str):
+    """
+    Vrátí BeautifulSoup objekt,
+    pro request se využívá Mozilla user-agent, jinak ČSFD vrací 403
+    """
     response = requests.get(
         f"{CSFD_URL}{path}",
         headers={'User-Agent': 'Mozilla/5.0'}

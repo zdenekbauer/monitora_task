@@ -6,6 +6,9 @@ from .models import Actor, Movie
 
 
 def search(request):
+    """
+    Vyhledá všechny filmy a herce bez ohledu na čárky/háčky a mezery.
+    """
     form = SearchForm()
     context = {
         'error_message': "",
@@ -17,23 +20,29 @@ def search(request):
     if request.method == "POST":
         form = SearchForm(request.POST)
         if form.is_valid():
-            search_value = form.cleaned_data['search'].replace(" ", "").lower()
+            search_value = unidecode(
+                form.cleaned_data['search'].replace(" ", "").lower()
+            )
             context['movies'] = Movie.objects.filter(
-                stripped_name__contains=unidecode(search_value)
+                stripped_name__contains=search_value
             ).all()
             context['actors'] = Actor.objects.filter(
-                stripped_name__contains=unidecode(search_value)
+                stripped_name__contains=search_value
             ).all()
 
     return render(request, 'crawler/search.html', context)
 
 
 def movie(request, movie_id):
+    """
+    Vyhledá všechny herce z daného filmu.
+    """
     context = {
         'error_message': "",
         'type': 'actor',
         'data': None,
     }
+
     try:
         context['data'] = Movie.objects.get(id=movie_id).actor_set.all()
     except Movie.DoesNotExist:
@@ -43,11 +52,15 @@ def movie(request, movie_id):
 
 
 def actor(request, actor_id):
+    """
+    Vyhledá všechny film z top300 pro daného herce.
+    """
     context = {
         'error_message': "",
         'type': 'movie',
         'data': None,
     }
+
     try:
         context['data'] = Actor.objects.get(id=actor_id).movies.all()
     except Actor.DoesNotExist:
